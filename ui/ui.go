@@ -6,6 +6,10 @@ import (
 	"time"
 )
 
+const (
+	frames = `⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏`
+)
+
 // Spinner is a tool for messaging async information to the terminal.
 type Spinner struct {
 	stop chan struct{}
@@ -19,12 +23,12 @@ func (s *Spinner) Start(format string, args ...interface{}) {
 
 	go func() {
 		for {
-			for _, r := range `-\|/` {
+			for _, r := range frames {
 				select {
 				case <-s.stop:
 					return
 				default:
-					fmt.Printf("\r%s%s %c%s", msg, "\x1b[92m", r, "\x1b[39m")
+					fmt.Printf("\r%s%s %c%s ", msg, "\x1b[92m", r, "\x1b[39m")
 					time.Sleep(time.Millisecond * 100)
 				}
 			}
