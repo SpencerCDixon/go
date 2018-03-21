@@ -41,3 +41,11 @@ func (s *Spinner) Start(format string, args ...interface{}) {
 func (s *Spinner) Stop() {
 	s.stop <- struct{}{}
 }
+
+// Pad helper.
+func Pad() func() {
+	println()
+	return func() {
+		println()
+	}
+}
